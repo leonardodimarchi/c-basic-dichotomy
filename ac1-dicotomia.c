@@ -3,11 +3,11 @@
 #include <math.h>
 
 void alocarFloat(float **p, int quantidade);
-void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos);
+void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao);
 
 int main(){
     int quantidadeDeTermos;
-    float precisao;
+    float *precisao = NULL;
     float *coeficientes = NULL;
     float *expoentes = NULL;
     float *intervaloDoisValores = NULL;
@@ -21,17 +21,15 @@ int main(){
 
     alocarFloat(&coeficientes,quantidadeDeTermos);
     alocarFloat(&expoentes,quantidadeDeTermos);
+    alocarFloat(&precisao,1);
 
-    printf("\n\nIntervalo [x1,x2]: ");
-    scanf("%f,%f",intervaloDoisValores,(intervaloDoisValores+1));
+    receberParametros(coeficientes,expoentes,quantidadeDeTermos,intervaloDoisValores,precisao);
 
-    receberParametros(coeficientes,expoentes,quantidadeDeTermos);
-    
     system("PAUSE");
     return(0);
 }
 
-void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos){
+void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao){
     int contador;
 
     printf("\n\n");
@@ -40,6 +38,13 @@ void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTe
         printf("Valores para \'x\' no %i\xA7 termo (coeficiente expoente): ",contador+1);
         scanf("%f %f",coeficientes+contador, expoentes+contador);
     }
+
+    printf("Intervalo [Entre virgulas: x1,x2]: ");
+    scanf("%f,%f",intervalo,(intervalo+1));
+
+    printf("Precisao (Exemplo: 0.01): ");
+    scanf("%f",precisao);
+
 }
 
 void alocarFloat(float **p, int quantidade){

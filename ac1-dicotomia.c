@@ -9,6 +9,7 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
 bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float *coeficientes,float *expoentes, int quantidadeDeTermos);
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao);
 void printarEstruturaTabela();
+void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB);
 float mediaFloat(float primeiroValor, float segundoValor);
 
 int main(){
@@ -49,9 +50,11 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
         funcIntervaloB = realizarEquacao(*(intervalo+1), coeficientes, expoentes, quantidadeDeTermos);
         funcPontoMedio = realizarEquacao(pontoMedio, coeficientes, expoentes, quantidadeDeTermos);
 
-        printf("\n\nfa= %.2f  fb=%.2f  fm =%.2f", funcIntervaloA, funcIntervaloB, funcPontoMedio);
+        printarLinhaTabela(indice,*intervalo,pontoMedio,*(intervalo+1),funcIntervaloA,funcPontoMedio,funcIntervaloB);
+
+        indice++;
         
-    }while(funcPontoMedio > *precisao);
+    }while(funcPontoMedio != funcPontoMedio);
 
 }
 
@@ -84,7 +87,7 @@ void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTe
         }else if(*intervalo == *(intervalo+1)){
             printf("\nDigite um intervalo valido.\n");
         }else if(!verificadorRaizNoIntervalo){
-            printf("Nao existem raizes nesse intervalo.");
+            printf("\nNao existem raizes nesse intervalo.");
         }
 
     }while(*intervalo > *(intervalo+1) || *intervalo == *(intervalo+1) || !verificadorRaizNoIntervalo);
@@ -155,4 +158,8 @@ void alocarFloat(float **p, int quantidade){
 
 void printarEstruturaTabela(){
     printf("\n\ti\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
+}
+
+void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB){
+    printf("\n\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
 }

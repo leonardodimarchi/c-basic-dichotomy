@@ -3,33 +3,42 @@
 #include <math.h>
 
 void alocarFloat(float **p, int quantidade);
-void receberParametros(float *termos, float *expoentes, int quantidadeDeTermos);
+void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos);
 
 int main(){
     int quantidadeDeTermos;
-    float *termos = NULL;
+    float precisao;
+    float *coeficientes = NULL;
     float *expoentes = NULL;
+    float *intervaloDoisValores = NULL;
+
+    alocarFloat(&intervaloDoisValores, 2);
 
     printf("\nDicotomia\n\n");
 
     printf("Quantidade de termos da equacao (no maximo 10): ");
     scanf("%i",&quantidadeDeTermos);
 
-    alocarFloat(&termos,quantidadeDeTermos);
+    alocarFloat(&coeficientes,quantidadeDeTermos);
     alocarFloat(&expoentes,quantidadeDeTermos);
 
-    receberParametros(termos,expoentes,quantidadeDeTermos);
+    printf("\n\nIntervalo [x1,x2]: ");
+    scanf("%f,%f",intervaloDoisValores,(intervaloDoisValores+1));
+
+    receberParametros(coeficientes,expoentes,quantidadeDeTermos);
     
     system("PAUSE");
     return(0);
 }
 
-void receberParametros(float *termos, float *expoentes, int quantidadeDeTermos){
+void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos){
     int contador;
 
+    printf("\n\n");
+
     for(contador = 0; contador < quantidadeDeTermos; contador++){
-        printf("\nValores para \'x\' no %i\xA7 termo (coeficiente expoente): ",contador+1);
-        scanf("%f %f",termos+contador, expoentes+contador);
+        printf("Valores para \'x\' no %i\xA7 termo (coeficiente expoente): ",contador+1);
+        scanf("%f %f",coeficientes+contador, expoentes+contador);
     }
 }
 

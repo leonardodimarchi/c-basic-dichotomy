@@ -5,8 +5,11 @@
 
 void alocarFloat(float **p, int quantidade);
 void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao);
-bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float *coeficientes,float *expoentes, int quantidadeDeTermos);
 float realizarEquacao(float x, float *coeficientes, float *expoentes, int quantidadeDeTermos);
+bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float *coeficientes,float *expoentes, int quantidadeDeTermos);
+void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao);
+void printarEstruturaTabela();
+float mediaFloat(float primeiroValor, float segundoValor);
 
 int main(){
     int quantidadeDeTermos;
@@ -31,6 +34,29 @@ int main(){
 
     system("PAUSE");
     return(0);
+}
+
+void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao){
+    float pontoMedio, funcIntervaloA, funcIntervaloB, funcPontoMedio;
+    int indice=1;
+
+    printarEstruturaTabela();
+
+    do{
+
+        pontoMedio = mediaFloat(*intervalo, *(intervalo+1));
+        funcIntervaloA = realizarEquacao(*intervalo, coeficientes, expoentes, quantidadeDeTermos);
+        funcIntervaloB = realizarEquacao(*(intervalo+1), coeficientes, expoentes, quantidadeDeTermos);
+        funcPontoMedio = realizarEquacao(pontoMedio, coeficientes, expoentes, quantidadeDeTermos);
+
+        printf("\n\nfa= %.2f  fb=%.2f  fm =%.2f", funcIntervaloA, funcIntervaloB, funcPontoMedio);
+        
+    }while(funcPontoMedio > *precisao);
+
+}
+
+float mediaFloat(float primeiroValor, float segundoValor){
+    return (primeiroValor+segundoValor)/2;
 }
 
 void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao){
@@ -119,9 +145,14 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
 }
 
 void alocarFloat(float **p, int quantidade){
+
     if((*p = (float *)realloc(*p, quantidade*sizeof(float)) ) == NULL){
         printf("\nOcorreu um erro na alocacao (Float)");
         exit(1);
     }
     printf("\nFloat Alocado com sucesso - End= %u", *p);
+}
+
+void printarEstruturaTabela(){
+    printf("\n\ti\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
 }

@@ -19,7 +19,6 @@ void printarEstruturaTabela();
 float mediaFloat(float primeiroValor, float segundoValor);
 void alocarFloat(float **p, int quantidade);
 
-
 int main(){
     int quantidadeDeTermos;
     float *precisao = NULL;
@@ -60,7 +59,7 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
         printarLinhaTabela(indice,*intervalo,pontoMedio,*(intervalo+1),funcIntervaloA,funcPontoMedio,funcIntervaloB);
 
-        //Verifica em qual metade a raiz esta
+        //Verifica em qual metade a raiz se encontra
         if(funcIntervaloA * funcPontoMedio < 0){
             *(intervalo+1) = pontoMedio;
         }else if(funcIntervaloB * funcPontoMedio < 0){
@@ -70,7 +69,7 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
         indice++;
         
         //Finaliza quando o modulo de f(m) <= Precisao
-    }while(fabs(funcPontoMedio) > *precisao); 
+    }while(fabs(funcPontoMedio)> *precisao); 
 
     printf("\n\nA raiz encontrada da funcao \x82 %.3f com erro de aproximadamente %.3f (< %.3f)\n\n",pontoMedio,fabs(funcPontoMedio),*precisao);
 
@@ -132,6 +131,7 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
     int contador;
     float expoenteAtual, coeficienteAtual, resultado = 0;
 
+    //Loop principal, passando por todos os termos da equacao
     for(contador=0; contador<quantidadeDeTermos; contador++){
 
         coeficienteAtual = *(coeficientes+contador);

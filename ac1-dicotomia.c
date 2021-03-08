@@ -1,16 +1,25 @@
+//Nome: Leonardo Dimarchi Souza da Cruz RA: 200109
+//Nome: Luiz Fernando Toquetto RA 200359
+
+//Dicotomia - AC1
+
+//Bibliotecas
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include <stdbool.h>
+#include <stdbool.h> //Biblioteca para facilitar a utilizacao de boolean
 
-void alocarFloat(float **p, int quantidade);
-void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao);
-float realizarEquacao(float x, float *coeficientes, float *expoentes, int quantidadeDeTermos);
-bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float *coeficientes,float *expoentes, int quantidadeDeTermos);
+//Prototipo das funcoes
+
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao);
-void printarEstruturaTabela();
+float realizarEquacao(float x, float *coeficientes, float *expoentes, int quantidadeDeTermos);
+void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao);
+bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float *coeficientes,float *expoentes, int quantidadeDeTermos);
 void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB);
+void printarEstruturaTabela();
 float mediaFloat(float primeiroValor, float segundoValor);
+void alocarFloat(float **p, int quantidade);
+
 
 int main(){
     int quantidadeDeTermos;
@@ -37,6 +46,7 @@ int main(){
     return(0);
 }
 
+//here
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao){
     float pontoMedio, funcIntervaloA, funcIntervaloB, funcPontoMedio;
     int indice=1;
@@ -52,9 +62,17 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
         printarLinhaTabela(indice,*intervalo,pontoMedio,*(intervalo+1),funcIntervaloA,funcPontoMedio,funcIntervaloB);
 
+        if(funcIntervaloA * funcPontoMedio < 0){
+            *(intervalo+1) = pontoMedio;
+        }else if(funcIntervaloB * funcPontoMedio < 0){
+            *intervalo = pontoMedio;
+        }
+
         indice++;
         
-    }while(funcPontoMedio != funcPontoMedio);
+    }while(fabs(funcPontoMedio)> *precisao);
+
+    printf("\nA raiz encontrada da funcao \x82 %.3f com erro de aproximadamente %.3f (< %.3f)\n",pontoMedio,fabs(funcPontoMedio),*precisao);
 
 }
 

@@ -10,7 +10,6 @@
 #include <stdbool.h> //Biblioteca para facilitar a utilizacao de boolean
 
 //Prototipo das funcoes
-
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao);
 float realizarEquacao(float x, float *coeficientes, float *expoentes, int quantidadeDeTermos);
 void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTermos, float *intervalo, float *precisao);
@@ -46,7 +45,6 @@ int main(){
     return(0);
 }
 
-//here
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao){
     float pontoMedio, funcIntervaloA, funcIntervaloB, funcPontoMedio;
     int indice=1;
@@ -54,7 +52,7 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
     printarEstruturaTabela();
 
     do{
-
+        //Atualiza as variaveis
         pontoMedio = mediaFloat(*intervalo, *(intervalo+1));
         funcIntervaloA = realizarEquacao(*intervalo, coeficientes, expoentes, quantidadeDeTermos);
         funcIntervaloB = realizarEquacao(*(intervalo+1), coeficientes, expoentes, quantidadeDeTermos);
@@ -62,6 +60,7 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
         printarLinhaTabela(indice,*intervalo,pontoMedio,*(intervalo+1),funcIntervaloA,funcPontoMedio,funcIntervaloB);
 
+        //Verifica em qual metade a raiz esta
         if(funcIntervaloA * funcPontoMedio < 0){
             *(intervalo+1) = pontoMedio;
         }else if(funcIntervaloB * funcPontoMedio < 0){
@@ -70,9 +69,10 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
         indice++;
         
-    }while(fabs(funcPontoMedio)> *precisao);
+        //Finaliza quando o modulo de f(m) <= Precisao
+    }while(fabs(funcPontoMedio) > *precisao); 
 
-    printf("\nA raiz encontrada da funcao \x82 %.3f com erro de aproximadamente %.3f (< %.3f)\n",pontoMedio,fabs(funcPontoMedio),*precisao);
+    printf("\n\nA raiz encontrada da funcao \x82 %.3f com erro de aproximadamente %.3f (< %.3f)\n\n",pontoMedio,fabs(funcPontoMedio),*precisao);
 
 }
 
@@ -166,12 +166,10 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
 }
 
 void alocarFloat(float **p, int quantidade){
-
     if((*p = (float *)realloc(*p, quantidade*sizeof(float)) ) == NULL){
         printf("\nOcorreu um erro na alocacao (Float)");
         exit(1);
     }
-    printf("\nFloat Alocado com sucesso - End= %u", *p);
 }
 
 void printarEstruturaTabela(){
@@ -179,5 +177,5 @@ void printarEstruturaTabela(){
 }
 
 void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB){
-    printf("\n\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
+    printf("\n\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
 }

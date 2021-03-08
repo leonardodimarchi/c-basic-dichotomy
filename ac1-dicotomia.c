@@ -26,7 +26,7 @@ int main(){
     float *expoentes = NULL;
     float *intervaloDoisValores = NULL;
 
-    printf("\nDicotomia\n\n");
+    printf("\nMetodos Numericos - Dicotomia\n\n");
 
     printf("Quantidade de termos da equacao (no maximo 10): ");
     scanf("%i",&quantidadeDeTermos);
@@ -83,7 +83,7 @@ void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTe
     int contador;
     bool verificadorRaizNoIntervalo;
 
-    printf("\n\n");
+    printf("\n");
 
     //Recebe os coeficientes e expoentes
     for(contador = 0; contador < quantidadeDeTermos; contador++){
@@ -173,9 +173,9 @@ void alocarFloat(float **p, int quantidade){
 }
 
 void printarEstruturaTabela(){
-    printf("\n\ti\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
+    printf("\ni\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
 }
 
 void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB){
-    printf("\n\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
+    printf("\n%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
 }

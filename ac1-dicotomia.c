@@ -17,6 +17,7 @@ bool verificarRaizNoIntervalo(float intervaloInicial,float intervaloFinal,float 
 void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB);
 void printarEstruturaTabela();
 float mediaFloat(float primeiroValor, float segundoValor);
+float arredondarFloat(float valor, int numeroDeCasas);
 void alocarFloat(float **p, int quantidade);
 
 int main(){
@@ -26,7 +27,7 @@ int main(){
     float *expoentes = NULL;
     float *intervaloDoisValores = NULL;
 
-    printf("\nMetodos Numericos - Dicotomia\n\n");
+    printf("\n- - - Metodos Numericos - Dicotomia - - -\n\n");
 
     printf("Quantidade de termos da equacao (no maximo 10): ");
     scanf("%i",&quantidadeDeTermos);
@@ -41,7 +42,7 @@ int main(){
     aplicarDicotomia(coeficientes,expoentes,quantidadeDeTermos,intervaloDoisValores,precisao);
 
     system("PAUSE");
-    return(0);
+    return 0;
 }
 
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao){
@@ -52,7 +53,7 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
     do{
         //Atualiza as variaveis
-        pontoMedio = mediaFloat(*intervalo, *(intervalo+1));
+        pontoMedio = arredondarFloat(mediaFloat(*intervalo, *(intervalo+1)),3);
         funcIntervaloA = realizarEquacao(*intervalo, coeficientes, expoentes, quantidadeDeTermos);
         funcIntervaloB = realizarEquacao(*(intervalo+1), coeficientes, expoentes, quantidadeDeTermos);
         funcPontoMedio = realizarEquacao(pontoMedio, coeficientes, expoentes, quantidadeDeTermos);
@@ -75,6 +76,10 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
 
 }
 
+float arredondarFloat(float valor, int numeroDeCasas){
+    return roundf(valor * pow(10,numeroDeCasas))/pow(10,numeroDeCasas);
+}
+
 float mediaFloat(float primeiroValor, float segundoValor){
     return (primeiroValor+segundoValor)/2;
 }
@@ -93,7 +98,7 @@ void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTe
 
     //Recebe intervalo, corrige erros de entrada e verifica se ha raiz neste intervalo inicial.
     do{
-        printf("Intervalo [Entre virgulas: x1,x2]: ");
+        printf("\nIntervalo [Entre virgulas: x1,x2]: ");
         scanf("%f,%f",intervalo,(intervalo+1));
 
         //Se nao tiver raiz no intervalo que passou, pedir novamente.
@@ -104,7 +109,7 @@ void receberParametros(float *coeficientes, float *expoentes, int quantidadeDeTe
         }else if(*intervalo == *(intervalo+1)){
             printf("\nDigite um intervalo valido.\n");
         }else if(!verificadorRaizNoIntervalo){
-            printf("\nNao existem raizes nesse intervalo.");
+            printf("\nNao existem raizes nesse intervalo.\n");
         }
 
     }while(*intervalo > *(intervalo+1) || *intervalo == *(intervalo+1) || !verificadorRaizNoIntervalo);
@@ -162,7 +167,8 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
 
     }
 
-    return resultado;
+    //Retorna com 3 casas decimais
+    return arredondarFloat(resultado,3);
 }
 
 void alocarFloat(float **p, int quantidade){
@@ -173,9 +179,9 @@ void alocarFloat(float **p, int quantidade){
 }
 
 void printarEstruturaTabela(){
-    printf("\ni\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
+    printf("\n\ti\ta\tm\tb\tf(a)\tf(m)\tf(b)\n");
 }
 
 void printarLinhaTabela(int indice, float intervaloA,float pontoMedio, float intervaloB, float funcIntervaloA, float funcPontoMedio, float funcIntervaloB){
-    printf("\n%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
+    printf("\n\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f",indice, intervaloA, pontoMedio, intervaloB, funcIntervaloA, funcPontoMedio, funcIntervaloB);
 }

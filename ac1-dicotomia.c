@@ -48,11 +48,13 @@ int main(){
 void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDeTermos, float *intervalo, float *precisao){
     float pontoMedio, funcIntervaloA, funcIntervaloB, funcPontoMedio;
     int indice=1;
+    bool existeRaizIntervaloAePontoMedio, existeRaizIntervaloBePontoMedio;
 
     printarEstruturaTabela();
 
     do{
-        //Atualiza as variaveis
+        
+        //Atualiza as variaveis 
         pontoMedio = arredondarFloat(mediaFloat(*intervalo, *(intervalo+1)),3);
         funcIntervaloA = realizarEquacao(*intervalo, coeficientes, expoentes, quantidadeDeTermos);
         funcIntervaloB = realizarEquacao(*(intervalo+1), coeficientes, expoentes, quantidadeDeTermos);
@@ -61,9 +63,12 @@ void aplicarDicotomia(float *coeficientes, float *expoentes, float *quantidadeDe
         printarLinhaTabela(indice,*intervalo,pontoMedio,*(intervalo+1),funcIntervaloA,funcPontoMedio,funcIntervaloB);
 
         //Verifica em qual metade a raiz se encontra
-        if(funcIntervaloA * funcPontoMedio < 0){
+        existeRaizIntervaloAePontoMedio = verificarRaizNoIntervalo(*intervalo, pontoMedio, coeficientes, expoentes, quantidadeDeTermos);
+        existeRaizIntervaloBePontoMedio = verificarRaizNoIntervalo(*(intervalo+1), pontoMedio, coeficientes, expoentes, quantidadeDeTermos);
+
+        if(existeRaizIntervaloAePontoMedio){
             *(intervalo+1) = pontoMedio;
-        }else if(funcIntervaloB * funcPontoMedio < 0){
+        }else if(existeRaizIntervaloBePontoMedio){
             *intervalo = pontoMedio;
         }
 

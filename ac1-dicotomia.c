@@ -1,7 +1,7 @@
 //Nome: Leonardo Dimarchi Souza da Cruz RA: 200109
 //Nome: Luiz Fernando Toquetto RA 200359
 
-//Dicotomia - AC1
+//Dicotomia
 
 //Bibliotecas
 #include <stdlib.h>
@@ -164,7 +164,6 @@ float realizarEquacao(float x, float *coeficientes, float *expoentes, int quanti
                 }
             }
         }
-
     }
 
     //Retorna com 3 casas decimais

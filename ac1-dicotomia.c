@@ -1,6 +1,3 @@
-//Nome: Leonardo Dimarchi Souza da Cruz RA: 200109
-//Nome: Luiz Fernando Toquetto RA 200359
-
 //Dicotomia
 
 //Bibliotecas

@@ -1,3 +1,3 @@
-# ac1-3s-dicotomia
+# Basic Dichotomy in C
 
-ac1 dicotomia em c
+In collaboration with [Toquetto](https://github.com/luiztoquetto)
